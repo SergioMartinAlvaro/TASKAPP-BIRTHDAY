@@ -1,0 +1,45 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+/* import { CosmosClient } from '@azure/cosmos';
+
+// Configuración de Cosmos DB
+const endpoint = "https://tasksbbdd.documents.azure.com:443/"; // Reemplaza con tu endpoint de Cosmos DB
+const key = "U1jGDI2AdcOy3WhNuewldAe3TYJ3nvyByLt1t3N3Lpj5AMNZzELF7uXRk0tOwT2qwkTTHTdjhbIFACDbLomJ0w=="; // Reemplaza con tu clave de Cosmos DB
+
+const client = new CosmosClient({ endpoint, key });
+
+// Ejemplo de consulta
+const databaseId = "tasksAppBBDD";
+const containerId = "nombre_de_tu_coleccion";
+
+async function queryCollection() {
+  const { resources: items } = await client
+    .database(databaseId)
+    .container(containerId)
+    .items.query("SELECT * FROM c")
+    .fetchAll();
+
+  console.log(items);
+}
+
+queryCollection();
+ */
+// Configuración de Express
+const app = (0, express_1.default)();
+// Rutas
+const cosmosConfig = require('./config/cosmosConfig');
+const users_1 = require("./src/routes/users");
+const keys_1 = require("./src/routes/keys");
+const tasks_1 = require("./src/routes/tasks");
+// Middleware para parsear el cuerpo de las solicitudes JSON
+app.use(express_1.default.json());
+// Configurar rutas
+app.use('/users', users_1.default);
+app.use('/keys', keys_1.default);
+app.use('/tasks', tasks_1.default);
+// Iniciar el servidor
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Servidor en funcionamiento en el puerto ${port}`);
+});
