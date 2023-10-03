@@ -1,0 +1,21 @@
+ .list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  // Centra verticalmente
+    margin-bottom: 10px;
+    font-family: "Patrick";
+  
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;  // Centra horizontalmente
+      padding: 8px;
+      border-bottom: 2px solid var(--Black, #1B1B1B);
+      margin-bottom: 8px;
+  
+      .icons {
+        display: flex;
+        gap: 8px;
+      }
+    }
+  }

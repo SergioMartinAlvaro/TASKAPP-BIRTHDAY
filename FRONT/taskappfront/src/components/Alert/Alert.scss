@@ -1,0 +1,59 @@
+@import "../../styles/global.scss";
+
+.alert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    font-family: "Patrick";
+    width: calc(100% - 40px); /* Ajusta el ancho según tus necesidades */
+    background-color: getColor(white);
+    border: 2px solid getColor(black) ;
+    border-radius: 5px;
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.5s ease-in-out;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.16);
+  
+    &.success {
+      color: getColor(black);
+    }
+  
+    &.error {
+      color: #f44336;
+    }
+  
+    &.warning {
+      color: #ff9800;
+    }
+  
+    p {
+      margin: 0;
+      margin-left: 10px;
+    }
+  
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      width: auto;
+      margin-left: auto;
+    }
+
+    img {
+        width: 24px; // Ajusta el tamaño según tus necesidades
+        height: 24px;
+        margin-right: 10px; // Espacio entre el ícono y el texto
+      }
+  
+    &.fade-in {
+      opacity: 1; /* Hacer visible */
+    }
+  }
+  

@@ -1,0 +1,24 @@
+@import "../../styles/global.scss";
+
+.progress-bar {
+    position: relative;
+    height: 14px; // Ajusta la altura según tus necesidades
+    width: 100%; // O ajusta el ancho según tus necesidades
+    background-color: #ccc;
+    border-radius: 40px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  
+  .progress-background {
+    height: 100%;
+    width: 100%;
+    background-color: getColor(grey);
+  }
+  
+  .progress-foreground {
+    height: 100%;
+    border-radius: 40px;
+    background-color: getColor(black); // Puedes ajustar el color de la barra de progreso
+    transition: width 0.3s ease-in-out; // Agrega una transición suave al ancho
+  }

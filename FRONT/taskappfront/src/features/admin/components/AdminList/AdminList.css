@@ -1,0 +1,20 @@
+.list {
+  margin: 10px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 8px;
+}
+
+.list-item .icons {
+  display: flex;
+  gap: 8px;
+}
+
+.list-item .icons .icon {
+  cursor: pointer;
+}
