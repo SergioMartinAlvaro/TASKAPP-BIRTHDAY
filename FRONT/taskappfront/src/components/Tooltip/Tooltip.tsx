@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { FC, ReactNode } from 'react';
+import './Tooltip.scss';
 
-const Tooltip = () => {
-  return (
-    <div>Tooltip</div>
-  )
+interface ITooltipProps {
+  position: 'top' | 'bottom' | 'left' | 'right';
+  children: ReactNode;
+  type: 'main' | 'secondary'
 }
 
-export default Tooltip
+const Tooltip: FC<ITooltipProps> = ({ position, children, type }) => {
+  return (
+    <div className={`tooltip tooltip-${position}`}>
+      <div className="dialog-content">{children}</div>
+      <div className={`dialog-triangle dialog-triangle-${position}`} />
+    </div>
+  );
+};
+
+export default Tooltip;

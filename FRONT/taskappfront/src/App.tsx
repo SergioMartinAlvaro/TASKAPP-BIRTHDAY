@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Form, { IFieldConfig } from './components/Form/Form';
 import Title, { ETitleSize } from './components/Title/Title';
+import Tooltip from './components/Tooltip/Tooltip';
 
 const fieldsConfig: IFieldConfig[] = [
   { type: 'input', name: 'name', placeholder: 'Nombre'},
@@ -16,6 +17,9 @@ const App = () => {
     <div className="App">
     <Title text="Escape App" size={ETitleSize.Large}></Title>
     <Form fields={fieldsConfig} />
+    <Tooltip position='right' type="secondary">
+      <p>My name is Sergio</p>
+    </Tooltip>
   </div>
   );
 }
