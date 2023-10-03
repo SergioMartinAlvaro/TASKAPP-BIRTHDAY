@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Form, { IFieldConfig } from './components/Form/Form';
@@ -9,6 +9,9 @@ import Alert, { AlertType } from './components/Alert/Alert';
 import AdminList from './features/admin/components/AdminList/AdminList';
 import {ReactComponent as ModificarIcon} from './assets/icons/Modificar.svg';
 import {ReactComponent as EliminarIcon} from './assets/icons/Eliminar.svg'
+import Button, { EButtonSize, EButtonType } from './components/Button/Button';
+import Modal from './components/Modal/Modal';
+import Input from './components/Form/Input/Input';
 
 const fieldsConfig: IFieldConfig[] = [
   { type: 'input', name: 'name', placeholder: 'Nombre'},
@@ -35,7 +38,21 @@ const itemList = [
   // Agrega más elementos según sea necesario
 ];
 
+
+
 const App = () => {
+
+  const [isModalOpen, setModalOpen] = useState(true);
+
+  const handleAction1 = () => {
+    alert('Acción 1 realizada');
+    setModalOpen(false);
+  };
+
+  const buttons = [
+    <Button key="button1" onClick={handleAction1} text="Aceptar" buttonType={EButtonType.Main} buttonSize={EButtonSize.LargeButton} />,
+  ];
+
   return (
     <div className="App">
     <Title text="Escape App" size={ETitleSize.Large}></Title>
@@ -46,6 +63,10 @@ const App = () => {
     <ProgressBar progress={50}></ProgressBar>
     <Alert message='Tarea completada con éxito' type={AlertType.Success}></Alert>
     <AdminList items={itemList} />
+    <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} title="Validar tarea" buttons={buttons}>
+        <p style={{marginBottom: "24px"}}>Mas despacio velocista! Para completar la tarea el usuario con el que has interactuado debe introducir su contraseña</p>
+        <Input label="" placeholder="Password" type="password" onChange={() => {}} value=""/>
+      </Modal>
   </div>
   );
 }
