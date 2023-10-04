@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+require("dotenv").config();
 
 // Configuración de Express
 const app = express();
