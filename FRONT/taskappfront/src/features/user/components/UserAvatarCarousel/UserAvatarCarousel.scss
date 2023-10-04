@@ -1,0 +1,38 @@
+.userAvatarCarousel {
+    width: 320px;
+    height: 240px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__slide {
+        display: flex;
+        justify-content: center;
+    }
+
+    .userAvatarCarousel__arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+    &__image {
+        width: 120px!important;
+    }
+    
+
+    &__button {
+        background: none;
+        border: none;
+        height: 48px;
+        display: flex;
+        width: 48px;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+            width: 48px;
+        }
+    }
+}

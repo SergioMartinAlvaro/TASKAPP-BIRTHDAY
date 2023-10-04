@@ -1,0 +1,60 @@
+@import "../../../../../styles/global.scss";
+
+.icon {
+    width: 25px;
+    cursor: pointer;
+}
+
+.list-item {
+    text-align: start;
+}
+
+.admin-icons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.list__checkbox {
+    appearance: none; // Elimina los estilos predeterminados del navegador
+  -webkit-appearance: none; 
+    border: 2px solid getColor(black);
+    border-radius: 4px;
+    height: 18px;
+    width: 18px;
+    background: getColor(white);
+
+    &:before {
+        // Pseudo-elemento para simular el nuevo indicador
+        content: '\2713'; // Caracter Unicode para una marca de verificación (✔)
+        font-size: 16px; // Ajusta el tamaño del indicador según sea necesario
+        color: #fff; // Color del indicador
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0; // Inicialmente oculto
+        transition: opacity 0.3s ease; // Agrega transición de opacidad para un efecto suave
+        
+    }
+
+    &:checked {
+        background-color: getColor(black);
+        color: getColor(white);
+
+        &::before {
+            opacity: 1;
+        }
+    }
+}
+
+.list__text {
+    text-align: start;
+    margin-left: 16px;
+
+    &--completed {
+        text-decoration: line-through;
+        color: getColor(grey2);
+        text-align: start;
+        margin-left: 16px;
+    }
+}

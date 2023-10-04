@@ -1,16 +1,27 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+
 // Configuración de Express
 const app = express();
-app.use(bodyParser.json());
+
+// Opciones CORS
+const corsOptions = {
+  origin: '*', // Permitir solicitudes desde cualquier origen durante el desarrollo
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+};
+
+// Habilitar CORS para todas las rutas
+app.use(cors(corsOptions));
+
+// Middleware para parsear el cuerpo de las solicitudes JSON
+app.use(express.json());
 
 // Rutas
 import usersRoutes from './src/routes/users';
 import keysRoutes from './src/routes/keys';
 import tasksRoutes from './src/routes/tasks';
-
-// Middleware para parsear el cuerpo de las solicitudes JSON
-app.use(express.json());
 
 // Configurar rutas
 app.use('/users', usersRoutes);
