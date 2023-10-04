@@ -53,4 +53,4 @@ jobs:
           app-name: 'TaskAppApis'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_106AF86F70334CACBCDEA3D028A064D2 }}
-          package: .
+          package: BACK
