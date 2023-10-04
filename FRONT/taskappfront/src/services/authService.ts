@@ -4,6 +4,7 @@ import axios from 'axios';
 const apiUrl = config.apiUrl;
 axios.defaults.headers.post['Content-Type'] ='application/json; charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] ='*';
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 const api = axios.create({
     baseURL: apiUrl,  // Reemplaza con la URL de tu servidor
     withCredentials: true,  // Permite enviar cookies y credenciales en la solicitud

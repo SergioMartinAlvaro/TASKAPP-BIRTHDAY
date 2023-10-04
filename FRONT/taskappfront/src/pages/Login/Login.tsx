@@ -19,6 +19,7 @@ import store from "../../store/store";
 import Form, { IFieldConfig } from "../../components/Form/Form";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
+import Alert, { AlertType } from "../../components/Alert/Alert";
 
 const peeps = [
   peep1,
@@ -43,7 +44,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   const changeUserName = (value) => {
     setUsername(value)
@@ -53,14 +54,24 @@ const Login = () => {
     setPassword(value)
   }
 
+  useEffect(() => {
+    if(message) {
+      setTimeout(() => {
+        setMessage('')
+      }, 3000)
+    }
+  }, [message])
+
   const handleLogin = async () => {
+    setMessage('')
     try {
       const userData = await login(username, password);
       console.log(userData);
       navigate('/home');
     } catch (error) {
       // Si hay un error en el inicio de sesión, maneja el error y muestra un mensaje
-      setError('Error en el inicio de sesión. Verifica tus credenciales.');
+      console.log(error)
+      setMessage(error.message);
     }
   }
 
@@ -77,6 +88,7 @@ const Login = () => {
   
   return (
     <div className="loginPage">
+      {message && <Alert message={message} type={AlertType.Success} /> } 
       <div className="titleContainer">
         <Title text="Escape Room" size={ETitleSize.Large} />
       </div>
