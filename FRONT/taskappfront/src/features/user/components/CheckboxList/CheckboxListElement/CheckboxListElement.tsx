@@ -5,7 +5,7 @@ import EditIcon from '../../../../../assets/icons/Modificar.svg';
 
 export interface Task {
     id: string;
-    title: string;
+    text: string;
     completed: boolean;
     actions: {
       edit?: () => void;
@@ -27,7 +27,7 @@ const CheckboxListElement: React.FC<CheckboxListElementProps> = ({ task, isAdmin
   return (
     <div className="checkbox-list-element">
       <input type="checkbox" checked={task.completed} onChange={handleCheckboxToggle} className='list__checkbox'/>
-      <span className={`list__text${task.completed ? '--completed' : ''}`}>{task.title}</span>
+      <span className={`list__text${task.completed ? '--completed' : ''}`}>{task.text}</span>
       {isAdmin && (
         <div className="admin-icons">
           {task.actions?.edit && <img src={EditIcon} alt="edit-icon" onClick={task.actions.edit} className="icon" />}

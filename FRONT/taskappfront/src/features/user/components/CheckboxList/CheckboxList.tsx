@@ -5,7 +5,7 @@ import './CheckboxList.scss';
 interface CheckboxListProps {
   tasks: {
     id: string;
-    title: string;
+    text: string;
     completed: boolean;
   }[];
   isAdmin: boolean;
