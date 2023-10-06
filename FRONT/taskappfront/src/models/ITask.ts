@@ -1,4 +1,4 @@
-import { IUser } from "./IUser";
+import { IUser, emptyUser } from "./IUser";
 
 export interface ITask {
     id: string,
@@ -8,3 +8,12 @@ export interface ITask {
     completed: boolean,
     description: string
   }
+
+export const emptyTask:ITask = {
+  id: "",
+  text: "",
+  userImplicated: emptyUser,
+  userAssigned: emptyUser,
+  completed: false,
+  description: ""
+}

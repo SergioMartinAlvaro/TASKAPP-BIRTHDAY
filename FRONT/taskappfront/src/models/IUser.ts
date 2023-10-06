@@ -4,3 +4,10 @@ export interface IUser {
     password: string,
     role: string
   }
+
+export const emptyUser:IUser = {
+  id: '',
+  name: '',
+  password: '',
+  role: ''
+}

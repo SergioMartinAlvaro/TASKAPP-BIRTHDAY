@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getAllTasksByUserId } from "../../services/tasksService";
+import { completeTask, getAllTasksByUserId } from "../../services/tasksService";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { ITask } from "../../models/ITask";
+import { ITask, emptyTask } from "../../models/ITask";
 import { setTaskToDo, setTasksCompleted } from "../../store/tasksSlice";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import Title, { ETitleSize } from "../../components/Title/Title";
@@ -12,8 +12,8 @@ import Button, {
   EButtonSize,
   EButtonType,
 } from "../../components/Button/Button";
-import Form, { IFieldConfig } from "../../components/Form/Form";
 import Input from "../../components/Form/Input/Input";
+import { login } from "../../services/authService";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,9 @@ const Home = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState('');
-  const [selectedTask, setSelectedTask] = useState({});
+  const [selectedTask, setSelectedTask] = useState<ITask>(emptyTask);
+  const [todoTasks, setTodoTask] = useState<ITask[]>(stateToDoTasks);
+  const [completedTasks, setCompletedTasks] = useState<ITask[]>(stateCompletedTasks); 
 
   useEffect(() => {
     const getUserTasks = async () => {
@@ -45,6 +47,8 @@ const Home = () => {
           });
           dispatch(setTaskToDo(taskToDo));
           dispatch(setTasksCompleted(taskCompleted));
+          setTodoTask(taskToDo);
+          setCompletedTasks(taskCompleted);
         })
         .catch((e) => {
           console.log(e);
@@ -56,20 +60,46 @@ const Home = () => {
   }, []);
 
   const handleToggle = (id) => {
-    const taskSelected: ITask = stateToDoTasks.find((task: ITask) => task.id === id);
-    console.log(taskSelected)
-    setSelectedTask(taskSelected[0]);
+    const taskSelected: ITask = todoTasks.find((task: ITask) => task.id === id);
+    setSelectedTask(taskSelected);
     setShowModal(true);
   };
 
   const closeModal = () => {
     setPassword('');
     setShowModal(false);
-    setSelectedTask({});
+    setSelectedTask(emptyTask);
   }
 
-  const validateTask = () => {
-    console.log(selectedTask)
+  const markTaskAsCompleted = () => {
+    let newSelectedTask = { ...selectedTask, completed: true };
+    setSelectedTask(newSelectedTask);
+    debugger
+    setCompletedTasks([...completedTasks, newSelectedTask]);
+  };
+
+  const validateTask = async () => {
+    const userImplicated = selectedTask.userImplicated;
+    await login(userImplicated.name, password).then(async (data) => {
+        await completeTask(selectedTask.id).then(data => {
+          const tasksToDo = todoTasks.filter((task: ITask) => task.id !== selectedTask.id);
+
+          /** Set useStateVariables  */
+          markTaskAsCompleted();
+          setTodoTask(tasksToDo);
+
+          /** Set store */
+          dispatch(setTasksCompleted(completedTasks))
+          dispatch(setTaskToDo(todoTasks))
+
+          setSelectedTask(emptyTask)
+          setShowModal(false);
+        }).catch((e) => {
+          console.log('Error completando la tarea')
+        })
+    }).catch(e => {
+      console.log('Te he pillado!!');
+    })
   }
 
   const buttons = [
@@ -92,7 +122,7 @@ const Home = () => {
       </div>
       <div className="listContainer">
         <CheckboxList
-          tasks={stateToDoTasks}
+          tasks={todoTasks}
           isAdmin={false}
           onToggle={(e) => handleToggle(e)}
         />
@@ -102,9 +132,9 @@ const Home = () => {
       </div>
       <div className="listContainer">
         <CheckboxList
-          tasks={stateCompletedTasks}
+          tasks={completedTasks}
           isAdmin={false}
-          onToggle={(e) => {console.log(e)}}
+          onToggle={(e) => {}}
         />
       </div>
       <Modal
