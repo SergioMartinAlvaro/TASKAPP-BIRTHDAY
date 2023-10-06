@@ -30,6 +30,7 @@ const Home = () => {
   const [selectedTask, setSelectedTask] = useState<ITask>(emptyTask);
   const [todoTasks, setTodoTask] = useState<ITask[]>(stateToDoTasks);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>(stateCompletedTasks); 
+  const [percentage, setPercentage] = useState<number>(0);
 
   useEffect(() => {
     const getUserTasks = async () => {
@@ -49,6 +50,7 @@ const Home = () => {
           dispatch(setTasksCompleted(taskCompleted));
           setTodoTask(taskToDo);
           setCompletedTasks(taskCompleted);
+          calculateProgressBar()
         })
         .catch((e) => {
           console.log(e);
@@ -74,7 +76,6 @@ const Home = () => {
   const markTaskAsCompleted = () => {
     let newSelectedTask = { ...selectedTask, completed: true };
     setSelectedTask(newSelectedTask);
-    debugger
     setCompletedTasks([...completedTasks, newSelectedTask]);
   };
 
@@ -93,6 +94,7 @@ const Home = () => {
           dispatch(setTaskToDo(todoTasks))
 
           setSelectedTask(emptyTask)
+          calculateProgressBar()
           setShowModal(false);
         }).catch((e) => {
           console.log('Error completando la tarea')
@@ -100,6 +102,15 @@ const Home = () => {
     }).catch(e => {
       console.log('Te he pillado!!');
     })
+  }
+
+  const calculateProgressBar = () => {
+    const numberOfToDoTasks = todoTasks.length;
+    const numberOfCompletedTasks = completedTasks.length;
+    const totalNumberOfTasks = numberOfCompletedTasks + numberOfToDoTasks;
+    const percentageCompleted = (numberOfCompletedTasks / totalNumberOfTasks) * 100;
+    debugger
+    setPercentage(percentageCompleted)
   }
 
   const buttons = [
@@ -115,7 +126,7 @@ const Home = () => {
   return (
     <div className="homeContainer">
       <div className="progressBarContainer">
-        <ProgressBar progress={50}></ProgressBar>
+        <ProgressBar progress={percentage}></ProgressBar>
       </div>
       <div className="titleContainer">
         <Title text="Tareas por hacer" size={ETitleSize.Small} />
