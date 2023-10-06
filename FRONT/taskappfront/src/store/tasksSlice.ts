@@ -2,11 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const tasksSlice = createSlice({
   name: 'tasks',
-  initialState: {tasks: []},
+  initialState: {tasksCompleted: [], tasksToDo: []},
   reducers: {
-    // acciones relacionadas con las tareas
+    setTasksCompleted: (state, action) => {
+      state.tasksCompleted = action.payload;
+    },
+    setTaskToDo: (state, action) => {
+      state.tasksToDo = action.payload
+    },
   },
 });
 
-export const { /* acciones de tareas */ } = tasksSlice.actions;
+export const { setTasksCompleted, setTaskToDo } = tasksSlice.actions;
 export default tasksSlice.reducer;

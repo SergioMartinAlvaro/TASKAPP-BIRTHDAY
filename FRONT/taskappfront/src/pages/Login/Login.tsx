@@ -20,6 +20,11 @@ import Form, { IFieldConfig } from "../../components/Form/Form";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
 import Alert, { AlertType } from "../../components/Alert/Alert";
+import { useDispatch } from "react-redux";
+import { logout, stateLogin } from "../../store/userSlice";
+import { getAllTasksByUserId } from "../../services/tasksService";
+import { ITask } from "../../models/ITask";
+import { setTaskToDo, setTasksCompleted } from "../../store/tasksSlice";
 
 const peeps = [
   peep1,
@@ -42,6 +47,7 @@ const peeps = [
 const Login = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -62,23 +68,29 @@ const Login = () => {
     }
   }, [message])
 
+
   const handleLogin = async () => {
     setMessage('')
     try {
-      const userData = await login(username, password);
-      console.log(userData);
-      navigate('/home');
+      await login(username, password).then(async (userData) => {
+        dispatch(stateLogin({
+          id: userData.user.id,
+          name: userData.user.name,
+          password: userData.user.password,
+          role: userData.user.role
+        }));
+        localStorage.setItem('userData', JSON.stringify({username: userData.user.name, password: userData.user.password}));
+      }).catch((e) => {
+        console.log(e);
+        setMessage('Error obteniendo el usuario')
+      })
+      navigate('/');
     } catch (error) {
       // Si hay un error en el inicio de sesión, maneja el error y muestra un mensaje
       console.log(error)
       setMessage(error.message);
     }
   }
-
-  useEffect(() => {
-    console.log(password)
-    console.log(username)
-  }, [password, username])
 
   const fieldsConfig: IFieldConfig[] = [
     { type: 'input', name: 'name', placeholder: 'Nombre', onChange: changeUserName},
