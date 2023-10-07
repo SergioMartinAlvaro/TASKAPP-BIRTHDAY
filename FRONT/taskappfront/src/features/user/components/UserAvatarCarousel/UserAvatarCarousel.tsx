@@ -7,10 +7,12 @@ const UserAvatarCarousel = ({ images }) => {
 
   const handlePrev = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : images.length - 1));
+    localStorage.setItem('userAvatar', `${currentImageIndex}`);
   };
 
   const handleNext = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex < images.length - 1 ? prevIndex + 1 : 0));
+    localStorage.setItem('userAvatar', `${currentImageIndex}`);
   };
 
   return (

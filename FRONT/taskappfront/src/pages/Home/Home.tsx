@@ -14,6 +14,8 @@ import Button, {
 } from "../../components/Button/Button";
 import Input from "../../components/Form/Input/Input";
 import { login } from "../../services/authService";
+import Alert, { AlertType } from "../../components/Alert/Alert";
+import UserFloatingButton from "../../features/user/components/UserFloatingMenu/UserFloatingMenu";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const Home = () => {
   const [todoTasks, setTodoTask] = useState<ITask[]>(stateToDoTasks);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>(stateCompletedTasks); 
   const [percentage, setPercentage] = useState<number>(0);
+  const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     calculateProgressBar();
@@ -67,6 +70,7 @@ const Home = () => {
   const handleToggle = (id) => {
     const taskSelected: ITask = todoTasks.find((task: ITask) => task.id === id);
     setSelectedTask(taskSelected);
+    setMessage('');
     setShowModal(true);
   };
 
@@ -99,11 +103,14 @@ const Home = () => {
           setSelectedTask(emptyTask)
 
           setShowModal(false);
+          setMessage('Tarea completada con éxito');
         }).catch((e) => {
-          console.log('Error completando la tarea')
+          setShowModal(false);
+          setMessage('No se ha podido completar la tarea. Prueba otra vez.')
         })
     }).catch(e => {
-      console.log('Te he pillado!!');
+      setShowModal(false);
+      setMessage('Te he pillado! Esa no es la contraseña!')
     })
   }
 
@@ -127,6 +134,7 @@ const Home = () => {
 
   return (
     <div className="homeContainer">
+      {message && <Alert message={message} type={AlertType.Success} /> } 
       <div className="progressBarContainer">
         <ProgressBar progress={percentage}></ProgressBar>
       </div>
@@ -159,6 +167,7 @@ const Home = () => {
         <p style={{marginBottom: "24px"}}>Mas despacio velocista! Para completar la tarea el usuario con el que has interactuado debe introducir su contraseña</p>
         <Input label="" placeholder="Password" type="password" onChange={(e) => {setPassword(e.target.value)}} value={password}/>
       </Modal>
+      <UserFloatingButton onClick={() => {}} />
     </div>
   );
 };

@@ -82,6 +82,7 @@ const Login = () => {
         localStorage.setItem('userData', JSON.stringify({username: userData.user.name, password: userData.user.password}));
       }).catch((e) => {
         console.log(e);
+        
         setMessage('Error obteniendo el usuario')
       })
       navigate('/');

@@ -1,0 +1,27 @@
+@import '../../styles/global.scss';
+
+.topMenu {
+  height: 80px;
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  &__logo {
+    height: 40px;
+    width: 40px;
+
+    &Container {
+
+    }
+  }
+
+  &__button {
+    width: auto;
+    &Container {
+      display: flex;
+      justify-content: end;
+    }
+  }
+}
