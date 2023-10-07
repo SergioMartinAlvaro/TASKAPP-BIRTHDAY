@@ -33,6 +33,10 @@ const Home = () => {
   const [percentage, setPercentage] = useState<number>(0);
 
   useEffect(() => {
+    calculateProgressBar();
+  }, [completedTasks])
+
+  useEffect(() => {
     const getUserTasks = async () => {
       const userId = user.id;
       await getAllTasksByUserId(userId)
@@ -50,7 +54,6 @@ const Home = () => {
           dispatch(setTasksCompleted(taskCompleted));
           setTodoTask(taskToDo);
           setCompletedTasks(taskCompleted);
-          calculateProgressBar()
         })
         .catch((e) => {
           console.log(e);
@@ -94,7 +97,7 @@ const Home = () => {
           dispatch(setTaskToDo(todoTasks))
 
           setSelectedTask(emptyTask)
-          calculateProgressBar()
+
           setShowModal(false);
         }).catch((e) => {
           console.log('Error completando la tarea')
@@ -109,7 +112,6 @@ const Home = () => {
     const numberOfCompletedTasks = completedTasks.length;
     const totalNumberOfTasks = numberOfCompletedTasks + numberOfToDoTasks;
     const percentageCompleted = (numberOfCompletedTasks / totalNumberOfTasks) * 100;
-    debugger
     setPercentage(percentageCompleted)
   }
 
