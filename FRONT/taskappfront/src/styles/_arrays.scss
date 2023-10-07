@@ -1,0 +1,65 @@
+$colors: (
+  primary: #3498db,
+  secondary: #2ecc71,
+  danger: #e74c3c,
+  warning: #f39c12,
+  info: #3498db,
+  success: #2ecc71,
+  black: #1B1B1B,
+  white: #FFF,
+  grey: #EEE,
+  grey2: #828282
+);
+
+// Tamaños de pantalla
+$screens: (
+  xs: 480px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px
+);
+
+// Márgenes
+$margins: (
+  xs: 5px,
+  sm: 10px,
+  md: 20px,
+  lg: 30px,
+  xl: 40px
+);
+
+// Tamaños de fuente
+$font-sizes: (
+  xs: 12px,
+  sm: 14px,
+  md: 16px,
+  lg: 18px,
+  xl: 20px
+);
+
+// Border radii
+$border-radii: (
+  small: 4px,
+  medium: 8px,
+  large: 12px
+);
+
+// Z-index values
+$z-indexes: (
+  modal: 1000,
+  dropdown: 500,
+  tooltip: 200
+);
+
+// Otros valores útiles
+$line-heights: (
+  small: 1.5,
+  medium: 1.8,
+  large: 2.2
+);
+
+$box-shadows: (
+  small: 0 1px 3px rgba(0, 0, 0, 0.12),
+  medium: 0 3px 6px rgba(0, 0, 0, 0.16),
+  large: 0 6px 12px rgba(0, 0, 0, 0.20)
+);

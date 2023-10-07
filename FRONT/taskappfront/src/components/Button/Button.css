@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Patrick";
+  src: url("../assets/fonts/PatrickHand-Regular.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+.button {
+  border-radius: 8px;
+  padding: 16px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  gap: 8px;
+}
+
+.button__LargeButton--Main {
+  width: 100%;
+  background: #1B1B1B;
+  color: #FFF;
+  font-family: 'Patrick';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.18px;
+}

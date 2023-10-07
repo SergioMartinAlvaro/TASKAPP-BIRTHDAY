@@ -1,0 +1,100 @@
+@font-face {
+  font-family: "Patrick";
+  src: url("../assets/fonts/PatrickHand-Regular.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+.tooltip {
+  font-family: "Patrick";
+  position: relative;
+  display: inline-block;
+  background-color: #FFF;
+  border: 3px solid #1B1B1B;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.16);
+}
+
+.tooltip.tooltip-top::before {
+  border-width: 10px 10px 0;
+  border-color: #f0f0f0 transparent transparent transparent;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip.tooltip-bottom::before {
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #f0f0f0 transparent;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip.tooltip-left::before {
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #f0f0f0 transparent transparent;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tooltip.tooltip-right::before {
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #f0f0f0;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tooltip .dialog-content {
+  z-index: 1;
+}
+
+.dialog-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.dialog-triangle.dialog-triangle-top {
+  border-width: 10px 10px 0;
+  border-color: #1B1B1B transparent transparent transparent;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dialog-triangle.dialog-triangle-bottom {
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #1B1B1B transparent;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dialog-triangle.dialog-triangle-left {
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #1B1B1B transparent transparent;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.dialog-triangle.dialog-triangle-right {
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #1B1B1B;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-180deg);
+}

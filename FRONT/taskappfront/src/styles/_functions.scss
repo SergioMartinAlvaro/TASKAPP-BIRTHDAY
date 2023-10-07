@@ -1,0 +1,32 @@
+@function getColor($name) {
+    @return map-get($colors, $name);
+}
+
+@function getMargin($name) {
+    @return map-get($margins, $name);
+  }
+  
+  @function getFontSize($name) {
+    @return map-get($font-sizes, $name);
+  }
+  
+  @function getBorderRadius($name) {
+    @return map-get($border-radii, $name);
+  }
+  
+  @function getZIndex($name) {
+    @return map-get($z-indexes, $name);
+  }
+  
+  @function getLineHeight($name) {
+    @return map-get($line-heights, $name);
+  }
+  
+  @function getBoxShadow($name) {
+    @return map-get($box-shadows, $name);
+  }
+  
+  @function getScreenSize($name) {
+    @return map-get($screens, $name);
+  }
+  

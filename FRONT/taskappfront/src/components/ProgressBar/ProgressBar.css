@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "Patrick";
+  src: url("../assets/fonts/PatrickHand-Regular.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+.progress-bar {
+  position: relative;
+  height: 14px;
+  width: 100%;
+  background-color: #ccc;
+  border-radius: 40px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.progress-background {
+  height: 100%;
+  width: 100%;
+  background-color: #EEE;
+}
+
+.progress-foreground {
+  height: 100%;
+  border-radius: 40px;
+  background-color: #1B1B1B;
+  transition: width 0.3s ease-in-out;
+}

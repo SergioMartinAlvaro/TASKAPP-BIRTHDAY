@@ -1,0 +1,20 @@
+@import "../../../styles/global.scss";
+
+.select {
+    &__default {
+        @include input-style;
+        font-family: "Patrick";
+        border: 2px solid getColor(black);
+        width: 100%;
+        margin-bottom: 24px;
+    }
+
+    &__option {
+        background: getColor(white)!important;
+        color: getColor(black)!important;
+        &:hover, &:focus, &:focus-within {
+            background: getColor(black)!important;
+            color: getColor(white)!important;
+        }
+    }
+}

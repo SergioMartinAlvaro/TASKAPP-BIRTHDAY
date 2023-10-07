@@ -1,0 +1,46 @@
+@import "../../styles/global.scss";
+
+.button {
+    border-radius: 8px;
+    padding: 16px 16px;
+    @include flex-center;
+    outline: none;
+    border: none;
+    gap: 8px;
+
+    &__LargeButton {
+        &--Main {
+            width: 100%;
+            background: getColor(black);
+            color: getColor(white);
+            font-family: 'Patrick';
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0.18px;
+        }
+
+        &--Secondary {
+
+        }
+
+        &--Blank {
+
+        }
+    }
+
+    &__SmallButton {
+        &--Main {
+
+        }
+
+        &--Secondary {
+
+        }
+
+        &--Blank {
+
+        }
+    }
+}

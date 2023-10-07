@@ -1,0 +1,12 @@
+@import "../../../styles/global.scss";
+
+.input {
+    &__default {
+        @include input-style;
+        font-family: "Patrick";
+        border: 2px solid getColor(black);
+        width: 100%;
+        margin-bottom: 24px;
+
+    }
+}

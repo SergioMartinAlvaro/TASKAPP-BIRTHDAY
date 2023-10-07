@@ -1,0 +1,13 @@
+.icon {
+  width: 30px;
+  cursor: pointer;
+}
+
+.list-item {
+  text-align: start;
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-end;
+}

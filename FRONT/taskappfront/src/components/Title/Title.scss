@@ -1,0 +1,23 @@
+@import "../../styles/global.scss";
+
+.title {
+    @include title-style;
+    font-family: "Inter";
+    color: getColor(black);
+    margin-bottom: 24px;
+    
+    &__default {
+        &--Large {
+            font-size: 56px;
+            font-weight: 700;
+        }
+
+        &--Medium {
+            font-size: 48px;
+        }
+
+        &--Small {
+            font-size: 24px;
+        }
+    }
+}
