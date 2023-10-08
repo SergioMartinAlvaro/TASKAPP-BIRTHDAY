@@ -17,6 +17,8 @@ import { login } from "../../services/authService";
 import Alert, { AlertType } from "../../components/Alert/Alert";
 import UserFloatingButton from "../../features/user/components/UserFloatingMenu/UserFloatingMenu";
 import { useNavigate } from "react-router-dom";
+import { IUser } from "../../models/IUser";
+import { setDateCompletedAllTasks } from "../../services/userService";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -39,6 +41,7 @@ const Home = () => {
 
   useEffect(() => {
     calculateProgressBar();
+    handleUserHasAllTasksCompleted(user);
   }, [completedTasks])
 
   useEffect(() => {
@@ -88,6 +91,31 @@ const Home = () => {
     setCompletedTasks([...completedTasks, newSelectedTask]);
   };
 
+  const handleUserHasAllTasksCompleted = async (user: IUser) => {
+    let currentDate = new Date().toISOString();
+    if(user.dataAllTasksCompleted) {
+      if(todoTasks.length > 0) {
+        currentDate = null;
+        await setDateCompletedAllTasks(user.id, currentDate).then(data => {
+          console.log(data);
+        })
+        .catch(e => {
+          console.log(e)
+        })
+      } 
+    } else {
+      if(completedTasks.length > 0 && todoTasks.length === 0) {
+        currentDate = new Date().toISOString();
+        await setDateCompletedAllTasks(user.id, currentDate).then(data => {
+          console.log(data);
+        })
+        .catch(e => {
+          console.log(e)
+        })
+      }
+    }
+  }
+
   const validateTask = async () => {
     const userImplicated = selectedTask.userImplicated;
     await login(userImplicated.name, password).then(async (data) => {
@@ -106,6 +134,7 @@ const Home = () => {
 
           setShowModal(false);
           setMessage('Tarea completada con éxito');
+
         }).catch((e) => {
           setShowModal(false);
           setMessage('No se ha podido completar la tarea. Prueba otra vez.')

@@ -12,59 +12,26 @@
   font-style: regular;
 }
 
-.icon {
-  width: 25px;
-  cursor: pointer;
-}
-
-.list-item {
-  text-align: start;
-}
-
-.admin-icons {
+.classificationElement {
+  height: 40px;
+  width: 100%;
+  border-bottom: 3px solid #1B1B1B;
   display: flex;
-  justify-content: flex-end;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-.list__checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  border: 2px solid #1B1B1B;
-  border-radius: 4px;
-  height: 18px;
-  width: 18px;
-  background: #FFF;
+.classificationElement__title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
-.list__checkbox:before {
-  content: '\2713';
-  font-size: 16px;
-  color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.classificationElement__score {
+  text-align: end;
 }
 
-.list__checkbox:checked {
-  background-color: #1B1B1B;
-  color: #FFF;
-}
-
-.list__checkbox:checked::before {
-  opacity: 1;
-}
-
-.list__text {
-  text-align: start;
-  margin-left: 16px;
-}
-
-.list__text--completed {
-  text-decoration: line-through;
-  color: #828282;
-  text-align: start;
-  margin-left: 16px;
+.classificationElement__number {
+  width: 34px;
 }

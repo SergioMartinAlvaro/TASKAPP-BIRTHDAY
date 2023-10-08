@@ -1,0 +1,101 @@
+@font-face {
+  font-family: "Patrick";
+  src: url("../assets/fonts/PatrickHand-Regular.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter.ttf");
+  font-weight: regular;
+  font-style: regular;
+}
+
+.topMenu {
+  height: 80px;
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.topMenu__logo {
+  height: 40px;
+  width: 40px;
+}
+
+.topMenu__logoContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.topMenu__button {
+  width: auto;
+}
+
+.topMenu__buttonContainer {
+  display: flex;
+  width: 30%;
+  justify-content: end;
+}
+
+.sideMenu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 70%;
+  height: 100%;
+  transition: width ease-in-out 1s;
+  background: white;
+  z-index: 99999;
+  border-left: 6px solid #1B1B1B;
+  -webkit-box-shadow: -7px 2px 234px -25px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -7px 2px 234px -25px rgba(0, 0, 0, 0.75);
+  box-shadow: -7px 2px 234px -25px rgba(0, 0, 0, 0.75);
+}
+
+.sideMenu__button {
+  height: 24px;
+  width: 24px;
+}
+
+.sideMenu__buttonContainer {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 12px;
+  margin-bottom: 24px;
+}
+
+.sideMenu__image {
+  width: 140px;
+  height: 140px;
+}
+
+.sideMenu__imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.sideMenu__option {
+  font-size: 24px;
+  height: 64px;
+  width: 100%;
+  color: #1B1B1B;
+  padding: 12px;
+  font-family: "Patrick";
+  display: flex;
+  align-items: center;
+}
+
+.sideMenu__option:hover {
+  background-color: #1B1B1B;
+  color: #FFF;
+}

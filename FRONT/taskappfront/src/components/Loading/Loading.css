@@ -1,0 +1,26 @@
+.loading {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  align-items: center;
+  margin-top: 64px;
+}
+
+.loading__image {
+  max-width: 220px;
+}
+
+.loading__imageContainer {
+  text-align: center;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+.loading__message {
+  font-family: "Inter";
+  font-size: 16px;
+}
+
+.loading__messageContainer {
+  text-align: center;
+}

@@ -28,3 +28,14 @@ export const getAllUsers = async () => {
     throw error.response?.data || error.message;
   }
 };
+
+export const setDateCompletedAllTasks = async (userId: string, date: string | null) => {
+  try {
+    const response = await api.post(`users/allTasksCompleted/${userId}`, {
+      date: date
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+}

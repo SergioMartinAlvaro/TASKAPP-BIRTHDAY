@@ -1,3 +1,12 @@
+.classification-list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: "Patrick";
+}
+
 .checkbox-list {
   display: flex;
   flex-direction: column;

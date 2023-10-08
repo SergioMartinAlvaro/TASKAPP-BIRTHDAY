@@ -51,7 +51,6 @@ const assignDateOfAllTasksCompletion = async (req: Request, res: Response) => {
       // Si no se encuentra la tarea, devolvemos null o lanzamos un error según tu lógica
       return null;
     }
-    console.log("DATE: ", date);
     userToUpdate.dataAllTasksCompleted = date;
     const { resource: updatedUser } = await usersContainer
     .item(userToUpdate.id)
