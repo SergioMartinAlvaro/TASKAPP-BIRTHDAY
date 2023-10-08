@@ -42,6 +42,30 @@ const getUserById = async (req: Request, res: Response) => {
   }
 };
 
+const assignDateOfAllTasksCompletion = async (req: Request, res: Response) => {
+  const userId = req.params.userId.toString();
+  const date = req.body.date;
+  try {
+    const { resource: userToUpdate } = await usersContainer.item(userId).read<IUser>();
+    if (!userToUpdate) {
+      // Si no se encuentra la tarea, devolvemos null o lanzamos un error según tu lógica
+      return null;
+    }
+    console.log("DATE: ", date);
+    userToUpdate.dataAllTasksCompleted = date;
+    const { resource: updatedUser } = await usersContainer
+    .item(userToUpdate.id)
+    .replace(userToUpdate);
+    if (updatedUser) {
+      res.json(updatedUser);
+    } else {
+      res.status(404).send(`No se encontró al usuario con el id ${userId}`);
+    }
+  } catch (error) {
+  console.error(`Error al actualizar el estado 'completed' del usuario ${userId}:`, error);
+  res.status(500).send(`Error al actualizar el estado 'completed' del usuario ${userId}`);
+  }
+}
 
 const updateUser = async (req: Request, res: Response) => {
   const userId = req.params.userId;
@@ -100,5 +124,6 @@ export {
   getUserById,
   updateUser,
   deleteUser,
-  getUserByCredentials
+  getUserByCredentials,
+  assignDateOfAllTasksCompletion
 };

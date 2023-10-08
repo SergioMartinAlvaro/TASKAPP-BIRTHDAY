@@ -9,7 +9,8 @@ router.post('/createUser', usersController.createUser);
 router.get('/getUserById/:userId', usersController.getUserById);
 router.put('/updateUser/:userId', usersController.updateUser);
 router.delete('/deleteUser/:userId', usersController.deleteUser);
-router.post('/getUserByCredentials', usersController.getUserByCredentials)
+router.post('/getUserByCredentials', usersController.getUserByCredentials);
+router.post('/allTasksCompleted/:userId', usersController.assignDateOfAllTasksCompletion);
 
 
 export default router;
