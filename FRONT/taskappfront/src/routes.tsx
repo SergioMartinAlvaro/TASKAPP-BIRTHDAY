@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './store/store';
 import { login } from './services/authService';
 import { stateLogin } from './store/userSlice';
+import Classification from './features/user/pages/Classification/Classification';
+import userImage from './assets/images/peeps/loading.svg';
+import Loading from './components/Loading/Loading';
 
 const RenderRoutes = () => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
@@ -49,14 +52,18 @@ const RenderRoutes = () => {
         path="/"
         element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
       />
+      <Route
+        path="/classification"
+        element={isAuthenticated ? <Classification /> : <Navigate to="/login" />}
+      />
       {/* Otras rutas aquí */}
     </Routes>
   );
 
   const loadingResponse = () => (
-    <>
-      <p>Cargando...</p>
-    </>
+    <div style={{marginTop: "140px"}}>
+      <Loading text="Estamos cargando tu usuario..." image={userImage} />
+    </div>
   );
 
   return (

@@ -16,9 +16,11 @@ import Input from "../../components/Form/Input/Input";
 import { login } from "../../services/authService";
 import Alert, { AlertType } from "../../components/Alert/Alert";
 import UserFloatingButton from "../../features/user/components/UserFloatingMenu/UserFloatingMenu";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.user);
   const stateToDoTasks = useSelector(
     (state: RootState) => state.tasks.tasksToDo
@@ -167,7 +169,7 @@ const Home = () => {
         <p style={{marginBottom: "24px"}}>Mas despacio velocista! Para completar la tarea el usuario con el que has interactuado debe introducir su contraseña</p>
         <Input label="" placeholder="Password" type="password" onChange={(e) => {setPassword(e.target.value)}} value={password}/>
       </Modal>
-      <UserFloatingButton onClick={() => {}} />
+      <UserFloatingButton onClick={() => {navigate('/classification')}} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import './Menu.scss';
 import menuIcon from '../../assets/icons/Menu.svg';
 import closeIcon from '../../assets/icons/CloseIcon.svg';
 import { getUserAvatar } from '../../utils/AvatarLoader/AvatarLoader';
+import Tooltip from '../Tooltip/Tooltip';
 
 interface MenuItem {
   label: string;
@@ -26,6 +27,9 @@ const Menu: React.FC<MenuProps> = ({ mainIcon, menuItems }) => {
     <div className="topMenu">
       <div className='topMenu__logoContainer'>
         <img src={getUserAvatar(localStorage.getItem('userAvatar'))} alt="user-image" className='topMenu__logo'></img>
+        <Tooltip position='right' type='main'>
+          <p>En un lugar de la mancha...</p>
+        </Tooltip>
       </div>
       <div className='topMenu__buttonContainer'>
         <img src={menuIcon} className="topMenu__button" onClick={toggleMenu}/>
