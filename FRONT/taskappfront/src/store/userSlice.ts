@@ -9,6 +9,8 @@ const userSlice = createSlice({
       state.user = action.payload;
     },
     logout: (state) => {
+      localStorage.removeItem('userAvatar');
+      localStorage.removeItem('userData');
       state.isAuthenticated = false;
       state.user = null;
     },
