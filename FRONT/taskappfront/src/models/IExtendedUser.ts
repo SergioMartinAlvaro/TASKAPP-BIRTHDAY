@@ -5,6 +5,8 @@ export interface IExtendedUser {
     role: string,
     pending: number;
     completed: number;
+    dataAllTasksCompleted?: string | null
+
   }
 
 export const emptyExtendedUser:IExtendedUser = {

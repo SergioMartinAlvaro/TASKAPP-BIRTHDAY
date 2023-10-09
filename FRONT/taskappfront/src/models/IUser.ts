@@ -3,7 +3,7 @@ export interface IUser {
     name: string,
     password: string,
     role: string,
-    dataAllTasksCompleted?: Date | null
+    dataAllTasksCompleted?: string | null
   }
 
 export const emptyUser:IUser = {

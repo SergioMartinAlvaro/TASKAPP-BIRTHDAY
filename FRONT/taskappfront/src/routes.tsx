@@ -19,7 +19,6 @@ const RenderRoutes = () => {
   useEffect(() => {
     const getUserIfTokenExists = async () => {
       const userDataString = localStorage.getItem('userData');
-      console.log(userDataString)
       if (userDataString) {
         const userData = JSON.parse(userDataString);
         try {
