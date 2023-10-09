@@ -28,7 +28,8 @@ const RenderRoutes = () => {
             id: loggedInUser.user.id,
             name: loggedInUser.user.name,
             password: loggedInUser.user.password,
-            role: loggedInUser.user.role
+            role: loggedInUser.user.role,
+            dataAllTasksCompleted: loggedInUser.user.dataAllTasksCompleted ? loggedInUser.user.dataAllTasksCompleted : null 
           }));
         } catch (error) {
           // Manejar el error, por ejemplo, redirigir a la página de inicio de sesión

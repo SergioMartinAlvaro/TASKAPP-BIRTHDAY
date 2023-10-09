@@ -93,6 +93,7 @@ const Home = () => {
 
   const handleUserHasAllTasksCompleted = async (user: IUser) => {
     let currentDate = new Date().toISOString();
+    debugger
     if(user.dataAllTasksCompleted) {
       if(todoTasks.length > 0) {
         currentDate = null;

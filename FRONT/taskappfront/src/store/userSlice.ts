@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { emptyUser } from '../models/IUser';
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: { isAuthenticated: false, user: {id: "", name: '', password: '', role: ''} },
+  initialState: { isAuthenticated: false, user: emptyUser },
   reducers: {
     stateLogin: (state, action) => {
       state.isAuthenticated = true;
