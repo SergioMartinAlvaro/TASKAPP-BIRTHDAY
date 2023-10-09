@@ -19,6 +19,7 @@ import UserFloatingButton from "../../features/user/components/UserFloatingMenu/
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../../models/IUser";
 import { setDateCompletedAllTasks } from "../../services/userService";
+import { setMenuMessage } from "../../store/userSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const Home = () => {
   useEffect(() => {
     calculateProgressBar();
     handleUserHasAllTasksCompleted(user);
+    handleAvatarMessage()
   }, [completedTasks])
 
   useEffect(() => {
@@ -69,8 +71,19 @@ const Home = () => {
           // dispatch(logout())
         });
     };
+    handleAvatarMessage()
     getUserTasks();
   }, []);
+
+  const handleAvatarMessage = () => {
+    if(completedTasks.length > 0 && todoTasks.length > 0) {
+      dispatch(setMenuMessage(`Parece que tienes tarea ${user.name}!`));
+    } else if (completedTasks.length > 0 && todoTasks.length === 0) {
+      dispatch(setMenuMessage(`Ya puedes obtener tu llave!`));
+    } else {
+      dispatch(setMenuMessage(`Haz click en mi para volver atrás.`));
+    }
+  }
 
   const handleToggle = (id) => {
     const taskSelected: ITask = todoTasks.find((task: ITask) => task.id === id);
@@ -93,7 +106,6 @@ const Home = () => {
 
   const handleUserHasAllTasksCompleted = async (user: IUser) => {
     let currentDate = new Date().toISOString();
-    debugger
     if(user.dataAllTasksCompleted) {
       if(todoTasks.length > 0) {
         currentDate = null;
@@ -135,6 +147,7 @@ const Home = () => {
 
           setShowModal(false);
           setMessage('Tarea completada con éxito');
+          dispatch(setMenuMessage(`Como esta mas, máquina!`));
 
         }).catch((e) => {
           setShowModal(false);
@@ -142,7 +155,8 @@ const Home = () => {
         })
     }).catch(e => {
       setShowModal(false);
-      setMessage('Te he pillado! Esa no es la contraseña!')
+      setMessage('Te he pillado! Esa no es la contraseña!');
+      dispatch(setMenuMessage(`Hacer trampas mata gatitos.`));
     })
   }
 

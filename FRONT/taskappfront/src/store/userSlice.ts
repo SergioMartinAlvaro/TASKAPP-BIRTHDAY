@@ -3,7 +3,7 @@ import { emptyUser } from '../models/IUser';
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: { isAuthenticated: false, user: emptyUser, allUsers: [] },
+  initialState: { isAuthenticated: false, user: emptyUser, allUsers: [], menuMessage: '' },
   reducers: {
     stateLogin: (state, action) => {
       state.isAuthenticated = true;
@@ -14,9 +14,12 @@ const userSlice = createSlice({
       localStorage.removeItem('userData');
       state.isAuthenticated = false;
       state.user = null;
+    },
+    setMenuMessage: (state, action) => {
+      state.menuMessage = action.payload
     }
   },
 });
 
-export const { stateLogin, logout } = userSlice.actions;
+export const { stateLogin, logout, setMenuMessage } = userSlice.actions;
 export default userSlice.reducer;

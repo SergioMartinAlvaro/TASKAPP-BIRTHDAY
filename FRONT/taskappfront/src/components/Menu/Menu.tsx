@@ -5,6 +5,10 @@ import menuIcon from '../../assets/icons/Menu.svg';
 import closeIcon from '../../assets/icons/CloseIcon.svg';
 import { getUserAvatar } from '../../utils/AvatarLoader/AvatarLoader';
 import Tooltip from '../Tooltip/Tooltip';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { setMenuMessage } from '../../store/userSlice';
 
 interface MenuItem {
   label: string;
@@ -17,18 +21,36 @@ interface MenuProps {
 }
 
 const Menu: React.FC<MenuProps> = ({ mainIcon, menuItems }) => {
+  const menuMessage = useSelector((state: RootState) => state.user.menuMessage);
+  const tasksCompleted = useSelector((state: RootState) => state.tasks.tasksCompleted);
+  const tasksToDo = useSelector((state: RootState) => state.tasks.tasksToDo);
+  const user = useSelector((state: RootState) => state.user.user);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [message, setMessage] = useState('')
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  useEffect(() => {
+    if(!menuMessage) {
+      dispatch(setMenuMessage(`Haz click en mi para volver atrás.`));
+    }
+    
+  }, [])
+
+  useEffect(() => {
+    setMessage(menuMessage)
+  }, [menuMessage])
+
   return (
     <div className="topMenu">
       <div className='topMenu__logoContainer'>
-        <img src={getUserAvatar(localStorage.getItem('userAvatar'))} alt="user-image" className='topMenu__logo'></img>
+        <img src={getUserAvatar(localStorage.getItem('userAvatar'))} alt="user-image" className='topMenu__logo' onClick={() => navigate('/')}></img>
         <Tooltip position='right' type='main'>
-          <p>En un lugar de la mancha...</p>
+          <p>{message}</p>
         </Tooltip>
       </div>
       <div className='topMenu__buttonContainer'>
