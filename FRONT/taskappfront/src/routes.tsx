@@ -6,16 +6,16 @@ import Login from './pages/Login/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './store/store';
 import { login } from './services/authService';
-import { stateLogin } from './store/userSlice';
+import { setIsAdmin, stateLogin } from './store/userSlice';
 import Classification from './features/user/pages/Classification/Classification';
 import userImage from './assets/images/peeps/loading.svg';
 import Loading from './components/Loading/Loading';
 import KeyPage from './features/user/pages/KeyPage/KeyPage';
+import AdminPanel from './features/admin/pages/AdminPanel/AdminPanel';
 
 const RenderRoutes = () => {
-  const user = useSelector((state: RootState) => state.user.user);
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
-  const key = useSelector((state: RootState) => state.keys.keyAssigned);
+  const isAdmin = useSelector((state: RootState) => state.user.isAdmin);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,6 +26,7 @@ const RenderRoutes = () => {
         const userData = JSON.parse(userDataString);
         try {
           const loggedInUser = await login(userData.username, userData.password);
+          loggedInUser.user.role === 'ADMIN' && dispatch(setIsAdmin(true));
           dispatch(stateLogin({
             id: loggedInUser.user.id,
             name: loggedInUser.user.name,
@@ -53,7 +54,7 @@ const RenderRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route
         path="/"
-        element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
+        element={isAuthenticated ? isAdmin ? <AdminPanel />: <Home /> : <Navigate to="/login" />}
       />
       <Route
         path="/classification"

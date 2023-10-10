@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
 import Alert, { AlertType } from "../../components/Alert/Alert";
 import { useDispatch } from "react-redux";
-import { logout, stateLogin } from "../../store/userSlice";
+import { logout, setIsAdmin, stateLogin } from "../../store/userSlice";
 import { getAllTasksByUserId } from "../../services/tasksService";
 import { ITask } from "../../models/ITask";
 import { setTaskToDo, setTasksCompleted } from "../../store/tasksSlice";
@@ -73,6 +73,7 @@ const Login = () => {
     setMessage('')
     try {
       await login(username, password).then(async (userData) => {
+        userData.user.role === 'ADMIN' && dispatch(setIsAdmin(true));
         dispatch(stateLogin({
           id: userData.user.id,
           name: userData.user.name,

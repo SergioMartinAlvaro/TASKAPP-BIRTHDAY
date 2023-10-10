@@ -22,9 +22,6 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({ mainIcon, menuItems }) => {
   const menuMessage = useSelector((state: RootState) => state.user.menuMessage);
-  const tasksCompleted = useSelector((state: RootState) => state.tasks.tasksCompleted);
-  const tasksToDo = useSelector((state: RootState) => state.tasks.tasksToDo);
-  const user = useSelector((state: RootState) => state.user.user);
   const [menuOpen, setMenuOpen] = useState(false);
   const [message, setMessage] = useState('')
   const navigate = useNavigate();
