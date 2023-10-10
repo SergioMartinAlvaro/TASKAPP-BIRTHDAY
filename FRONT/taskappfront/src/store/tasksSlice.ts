@@ -10,8 +10,12 @@ const tasksSlice = createSlice({
     setTaskToDo: (state, action) => {
       state.tasksToDo = action.payload
     },
+    cleanTasks: (state) => {
+      state.tasksToDo = [];
+      state.tasksCompleted = []
+    }
   },
 });
 
-export const { setTasksCompleted, setTaskToDo } = tasksSlice.actions;
+export const { setTasksCompleted, setTaskToDo, cleanTasks } = tasksSlice.actions;
 export default tasksSlice.reducer;

@@ -8,6 +8,8 @@ import Menu from './components/Menu/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import Alert, { AlertType } from './components/Alert/Alert';
 import { logout } from './store/userSlice';
+import { cleanTasks } from './store/tasksSlice';
+import { cleanKey } from './store/keysSlice';
 
 const App: React.FC = () => {
   // Aquí puedes agregar la lógica para determinar si el usuario está logueado o no
@@ -17,6 +19,8 @@ const App: React.FC = () => {
 
   const closeSession = () => {
     dispatch(logout());
+    dispatch(cleanTasks());
+    dispatch(cleanKey())
     setMessage('Sesión cerrada con éxito');
     setTimeout(() => {
       setMessage('')

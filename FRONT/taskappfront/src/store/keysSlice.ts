@@ -8,8 +8,11 @@ const keysSlice = createSlice({
     setKey: (state, action) => {
       state.keyAssigned = action.payload;
     },
+    cleanKey: (state) => {
+      state.keyAssigned = [emptyKey]
+    }
   },
 });
 
-export const { setKey } = keysSlice.actions;
+export const { setKey, cleanKey } = keysSlice.actions;
 export default keysSlice.reducer;
