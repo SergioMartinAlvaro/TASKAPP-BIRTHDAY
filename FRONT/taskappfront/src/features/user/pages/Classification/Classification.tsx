@@ -7,6 +7,9 @@ import { IExtendedUser } from "../../../../models/IExtendedUser";
 import Loading from "../../../../components/Loading/Loading";
 import loadingImage from "../../../../assets/images/peeps/loading.svg";
 import ClassificationList from "../../components/ClassificationList/ClassificationList";
+import { useDispatch, useSelector } from "react-redux";
+import { setMenuMessage } from "../../../../store/userSlice";
+import { RootState } from "../../../../store/store";
 
 export interface ICompleteInconpleteTasks {
   completed: number;
@@ -14,12 +17,32 @@ export interface ICompleteInconpleteTasks {
 }
 
 const Classification = () => {
+  const user = useSelector((state: RootState) => state.user.user);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [users, setUsers] = useState<IUser[]>([]);
   const [userTotalRanking, setUserTotalRanking] = useState<IExtendedUser[]>([]);
   const [sortedRanking, setSortedRanking] = useState<IExtendedUser[]>([]);
+  const dispatch = useDispatch();
+
+  const calculateMenuText = () => {
+    const posicion = sortedRanking.findIndex(persona => persona.name === user.name);
+    if (posicion !== -1) {
+      const longitudArray = sortedRanking.length;
+    
+      if (posicion < 3) {
+        dispatch(setMenuMessage('Wow! En el podio crack!'))
+      } else if (posicion >= longitudArray - 3) {
+        dispatch(setMenuMessage('Sigamos remando, pa\'rriba!!'))
+      } else {
+        dispatch(setMenuMessage('Pero bueno! A hacer tareas!'))
+      }
+    } else {
+ 
+    }
+  }
 
   useEffect(() => {
+    dispatch(setMenuMessage(`Ya queda menos para la 33!`));
     const fetchData = async () => {
       setIsLoading(true);
 
@@ -91,6 +114,7 @@ const Classification = () => {
     });
 
     setSortedRanking(sortedRanking);
+    calculateMenuText();
   }, [userTotalRanking]);
 
   const displayLoadingPage = () => {

@@ -20,6 +20,8 @@ import { useNavigate } from "react-router-dom";
 import { IUser } from "../../models/IUser";
 import { setDateCompletedAllTasks } from "../../services/userService";
 import { setMenuMessage } from "../../store/userSlice";
+import GetKeyButton from "../../features/user/components/GetKeyButton/GetKeyButton";
+import './Home.scss'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -188,11 +190,16 @@ const Home = () => {
         <Title text="Tareas por hacer" size={ETitleSize.Small} />
       </div>
       <div className="listContainer">
-        <CheckboxList
+        {todoTasks.length > 0 ? <CheckboxList
           tasks={todoTasks}
           isAdmin={false}
           onToggle={(e) => handleToggle(e)}
-        />
+          /> :  completedTasks.length > 0 ? <GetKeyButton /> :
+           <div className="textContainer">
+            <p className="textContainer__text">
+              No tienes tareas asignadas
+            </p>
+           </div>}
       </div>
       <div className="titleContainer">
         <Title text="Tareas completadas" size={ETitleSize.Small} />

@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { emptyKey } from '../models/IKey';
 
 const keysSlice = createSlice({
   name: 'keys',
-  initialState: {keys: []},
+  initialState: {keyAssigned: emptyKey},
   reducers: {
-    // acciones relacionadas con las llaves
+    setKey: (state, action) => {
+      state.keyAssigned = action.payload;
+    },
   },
 });
 
-export const { /* acciones de llaves */ } = keysSlice.actions;
+export const { setKey } = keysSlice.actions;
 export default keysSlice.reducer;
