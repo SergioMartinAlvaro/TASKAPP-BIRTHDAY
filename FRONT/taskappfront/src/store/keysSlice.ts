@@ -3,7 +3,7 @@ import { emptyKey } from '../models/IKey';
 
 const keysSlice = createSlice({
   name: 'keys',
-  initialState: {keyAssigned: emptyKey},
+  initialState: {keyAssigned: [emptyKey]},
   reducers: {
     setKey: (state, action) => {
       state.keyAssigned = action.payload;

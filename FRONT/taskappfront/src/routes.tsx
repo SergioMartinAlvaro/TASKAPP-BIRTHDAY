@@ -10,9 +10,12 @@ import { stateLogin } from './store/userSlice';
 import Classification from './features/user/pages/Classification/Classification';
 import userImage from './assets/images/peeps/loading.svg';
 import Loading from './components/Loading/Loading';
+import KeyPage from './features/user/pages/KeyPage/KeyPage';
 
 const RenderRoutes = () => {
+  const user = useSelector((state: RootState) => state.user.user);
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+  const key = useSelector((state: RootState) => state.keys.keyAssigned);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,6 +59,11 @@ const RenderRoutes = () => {
         path="/classification"
         element={isAuthenticated ? <Classification /> : <Navigate to="/login" />}
       />
+      <Route
+        path="/key"
+        element={isAuthenticated ?
+           <KeyPage /> : <Navigate to="/login" />}
+         />
       {/* Otras rutas aquí */}
     </Routes>
   );

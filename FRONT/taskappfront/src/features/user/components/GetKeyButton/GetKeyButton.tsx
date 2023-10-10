@@ -7,9 +7,11 @@ import { setMenuMessage } from '../../../../store/userSlice';
 import { setKey } from '../../../../store/keysSlice';
 import Button, { EButtonSize, EButtonType } from '../../../../components/Button/Button';
 import './GetKeyButton.scss';
+import { useNavigate } from 'react-router-dom';
 
 const GetKeyButton = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.user.user);
     const toDoTasks = useSelector((state: RootState) => state.tasks.tasksToDo);
     const completedTasks = useSelector((state: RootState) => state.tasks.tasksCompleted);
@@ -56,7 +58,7 @@ const GetKeyButton = () => {
     }, [])
 
     const goToKey = () => {
-      console.log('Vamos a la llave');
+      navigate('/key')
     }
 
   return (

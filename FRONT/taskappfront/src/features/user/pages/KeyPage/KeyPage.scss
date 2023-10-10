@@ -1,0 +1,22 @@
+.keyContainer {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    overflow: hidden;
+    &__title {
+        &Container {
+            margin-bottom: 24px;
+            font-size: 36px;
+        }
+    }
+
+    &__text {
+        &Container {
+            transform: translateX(-10px);
+        }
+    }
+
+    &__image {
+        margin-top: 12px;
+    }
+}
