@@ -10,6 +10,7 @@ import AdminList from '../../components/AdminList/AdminList';
 import Modal from '../../../../components/Modal/Modal';
 import Button, { EButtonSize, EButtonType } from '../../../../components/Button/Button';
 import { IUser, emptyUser } from '../../../../models/IUser';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPanel = () => {
     const stateAllUsers = useSelector((state: RootState) => state.admin.allUsers);
@@ -18,6 +19,7 @@ const AdminPanel = () => {
     const [showModal, setShowModal] = useState(false);
     const [userSelected, setUserSelected] = useState<IUser>(emptyUser);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(stateAllUsers.length > 0) {
@@ -27,7 +29,7 @@ const AdminPanel = () => {
                 newItemList.push({
                     text: user.name,
                     icons: {
-                      Modificar: { icon: <ModificarIcon />, action: () => alert(`Modificar ${user.name}`) },
+                      Modificar: { icon: <ModificarIcon />, action: () => navigate(`/user/${user.id}`) },
                       Eliminar: { icon: <EliminarIcon />, action: () => openModal(user) },
                     },
                 })

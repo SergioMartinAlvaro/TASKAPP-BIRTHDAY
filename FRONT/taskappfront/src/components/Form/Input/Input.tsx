@@ -1,20 +1,25 @@
 import React, { ChangeEvent } from 'react';
-import Label from '../Label/Label';
-import './Input.scss'
+import './Input.scss';
 
 interface InputProps {
-  label: string; // Etiqueta del input
-  type?: string; // Tipo del input (por defecto 'text')
-  value: string; // Valor del input
-  placeholder?: string,
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void; // Función que se ejecutará al cambiar el input
+  label: string;
+  type?: string;
+  value?: string;
+  placeholder?: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input: React.FC<InputProps> = ({ label, type = 'text', value, onChange, placeholder }) => {
+const Input: React.FC<InputProps> = ({ label, placeholder, type = 'text', value, onChange }) => {
   return (
     <div>
-      {label && <Label text={label}></Label>}
-      <input placeholder={placeholder ? placeholder : ''} type={type} value={value} onChange={onChange} className='input__default'/>
+      {label && <label>{label}</label>}
+      <input
+        className='input__default'
+        type={type}
+        placeholder={placeholder}
+        value={value || ''}  // Utiliza el valor proporcionado o una cadena vacía si es nulo o indefinido
+        onChange={onChange}
+      />
     </div>
   );
 };

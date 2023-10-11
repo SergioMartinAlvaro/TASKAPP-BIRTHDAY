@@ -12,6 +12,7 @@ import userImage from './assets/images/peeps/loading.svg';
 import Loading from './components/Loading/Loading';
 import KeyPage from './features/user/pages/KeyPage/KeyPage';
 import AdminPanel from './features/admin/pages/AdminPanel/AdminPanel';
+import EditUser from './features/admin/pages/EditUser/EditUser';
 
 const RenderRoutes = () => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
@@ -64,6 +65,11 @@ const RenderRoutes = () => {
         path="/key"
         element={isAuthenticated ?
            <KeyPage /> : <Navigate to="/login" />}
+         />
+      <Route
+        path="/user/:value"
+        element={(isAuthenticated && isAdmin) ?
+            <EditUser /> : <Navigate to="/login" />}
          />
       {/* Otras rutas aquí */}
     </Routes>

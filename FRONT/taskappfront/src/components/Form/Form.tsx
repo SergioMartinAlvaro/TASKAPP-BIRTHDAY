@@ -17,8 +17,8 @@ export interface IFieldConfig {
   name: string;
   placeholder?: string;
   onChange: (e: any) => void;
+  value?: string
 }
-
 const Form: React.FC<FormProps> = ({ fields, submitAction }) => {
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
 
@@ -27,14 +27,16 @@ const Form: React.FC<FormProps> = ({ fields, submitAction }) => {
     value: string,
     fieldAction: (e: any) => void
   ) => {
-    setFormData({ ...formData, [name]: value });
-    fieldAction(value)
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    fieldAction(value);
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     submitAction();
-    // Aquí puedes manejar la lógica del envío del formulario con los datos de formData
     console.log("Datos del formulario:", formData);
   };
 
@@ -48,21 +50,27 @@ const Form: React.FC<FormProps> = ({ fields, submitAction }) => {
               label={field.label}
               placeholder={field.placeholder}
               type={field.type === "password" ? "password" : "text"}
-              value={formData[field.name] || ""}
-              onChange={(e) => handleChange(field.name, e.target.value, field.onChange)}
+              value={formData[field.name] || field.value || ""}
+              onChange={(e) =>
+                handleChange(field.name, e.target.value, field.onChange)
+              }
             />
           )}
           {field.type === "select" && (
             <Select
               options={field.options || []}
               value={formData[field.name] || ""}
-              onChange={(e) => handleChange(field.name, e.target.value, field.onChange)}
+              onChange={(e) =>
+                handleChange(field.name, e.target.value, field.onChange)
+              }
             />
           )}
           {field.type === "textarea" && (
             <TextArea
               value={formData[field.name] || ""}
-              onChange={(e) => handleChange(field.name, e.target.value, field.onChange)}
+              onChange={(e) =>
+                handleChange(field.name, e.target.value, field.onChange)
+              }
             />
           )}
         </div>
@@ -72,8 +80,7 @@ const Form: React.FC<FormProps> = ({ fields, submitAction }) => {
         text="Enviar"
         buttonSize={EButtonSize.LargeButton}
         buttonType={EButtonType.Main}
-      />{" "}
-      {/* Utilizamos el componente Button */}
+      />
     </form>
   );
 };

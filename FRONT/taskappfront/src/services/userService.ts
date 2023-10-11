@@ -1,5 +1,6 @@
 import config from "../config/config";
 import axios from "axios";
+import { IUser } from "../models/IUser";
 
 const apiUrl = config.apiUrl;
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
@@ -28,6 +29,20 @@ export const getAllUsers = async () => {
     throw error.response?.data || error.message;
   }
 };
+
+export const updatedUser = async (userId: string, userData: IUser) => {
+  try {
+    const response = await api.put(`users/updateUser/${userId}`, {
+      id: userData.id,
+      name: userData.name,
+      password: userData.password,
+      role: userData.role
+    });
+  } catch (error) {
+    // Si hay un error en la solicitud, maneja el error o lanza una excepción
+    throw error.response?.data || error.message;
+  }
+}
 
 export const deleteUser = async (userId: string) => {
   try {
