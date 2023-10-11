@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from '../../../../store/store';
 import { deleteUser, getAllUsers } from '../../../../services/userService';
-import { removeUser, setAllUsers } from '../../../../store/adminSlice';
+import { removeUser, setAllTasks, setAllUsers } from '../../../../store/adminSlice';
 import { setMenuMessage } from '../../../../store/userSlice';
 import {ReactComponent as ModificarIcon} from '../../../../assets/icons/Modificar.svg';
-import {ReactComponent as EliminarIcon} from '../../../../assets/icons/Eliminar.svg'
+import {ReactComponent as EliminarIcon} from '../../../../assets/icons/Eliminar.svg';
+import {ReactComponent as VerUsuario} from '../../../../assets/icons/EyeOpen.svg'
 import AdminList from '../../components/AdminList/AdminList';
 import Modal from '../../../../components/Modal/Modal';
 import Button, { EButtonSize, EButtonType } from '../../../../components/Button/Button';
@@ -29,8 +30,9 @@ const AdminPanel = () => {
                 newItemList.push({
                     text: user.name,
                     icons: {
-                      Modificar: { icon: <ModificarIcon />, action: () => navigate(`/user/${user.id}`) },
-                      Eliminar: { icon: <EliminarIcon />, action: () => openModal(user) },
+                      Ver: {icon: <VerUsuario />, action: () => navigate(`/user/${user.id}`)},
+                      Modificar: { icon: <ModificarIcon />, action: () => navigate(`/edit-user/${user.id}`) },
+                      Eliminar: { icon: <EliminarIcon />, action: () => openModal(user) }
                     },
                 })
             })
@@ -77,6 +79,7 @@ const AdminPanel = () => {
             })
         }
 
+        dispatch(setAllTasks([]))
         getAllUserData();
     }, [])
 
