@@ -1,5 +1,7 @@
 import config from "../config/config";
 import axios from "axios";
+import { ITask } from "../models/ITask";
+import { v4 as uuidv4 } from "uuid";
 
 const apiUrl = config.apiUrl;
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
@@ -19,6 +21,22 @@ export const getAllTasksByUserId = async (userId: string) => {
   try {
     const response = await api.get(`tasks/getAllTasksByUserId/${userId}`);
 
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+export const createTask = async (task: ITask) => {
+  try {
+    const response = await api.post("tasks/createTask", {
+      id: uuidv4(),
+      text: task.text,
+      userImplicated: task.userImplicated,
+      userAssigned: task.userAssigned,
+      completed: false,
+      description: "",
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;

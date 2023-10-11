@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "fortawesome": "^0.0.1-security"
+    "fortawesome": "^0.0.1-security",
+    "uuid": "^9.0.1"
   }
 }

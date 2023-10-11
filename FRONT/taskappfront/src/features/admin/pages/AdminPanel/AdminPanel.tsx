@@ -12,6 +12,7 @@ import Modal from '../../../../components/Modal/Modal';
 import Button, { EButtonSize, EButtonType } from '../../../../components/Button/Button';
 import { IUser, emptyUser } from '../../../../models/IUser';
 import { useNavigate } from 'react-router-dom';
+import AdminFloatingButton from '../../components/AdminFloatingMenu/AdminFloatingMenu';
 
 const AdminPanel = () => {
     const stateAllUsers = useSelector((state: RootState) => state.admin.allUsers);
@@ -83,9 +84,21 @@ const AdminPanel = () => {
         getAllUserData();
     }, [])
 
+    const menuButtons = [
+        {
+            text: "Añadir tarea a todos",
+            action: () => {navigate('/add-task-to-all')}
+        },
+        {
+            text: "Ver Llaves",
+            action: () => {}
+        },
+    ]
+
   return (
     <div>
         <AdminList items={itemList} />
+        <AdminFloatingButton options={menuButtons} />
         {showModal &&        <Modal
         isOpen={showModal}
         onClose={() => setShowModal(false)}

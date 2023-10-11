@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IUser, emptyUser } from "../../../../models/IUser";
 import { getAllUsers } from "../../../../services/userService";
 import { setMenuMessage } from "../../../../store/userSlice";
@@ -22,17 +22,8 @@ const UserInfo = () => {
   const allTasks = useSelector((state: RootState) => state.admin.allTasks);
   const [toDoTasks, setToDoTasks] = useState<ITask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
-  const [isMenuOpen, setMenuOpen] = useState(false);
-
-  const handleFloatingButtonClick = () => {
-    debugger
-    setMenuOpen(true);
-  };
-
-  const handleCloseMenu = () => {
-    setMenuOpen(false);
-  };
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const loadUserInfo = async () => {
       if (allUsers.length === 0) {
@@ -78,7 +69,7 @@ const UserInfo = () => {
   }
 
   const menuButtons = [
-    {text: "Añadir tarea", action: () => {}},
+    {text: "Añadir tarea", action: () => {navigate(`/add-task/${selectedUser.id}`)}},
     {text: "Ver llaves", action: () => {}}
   ]
 

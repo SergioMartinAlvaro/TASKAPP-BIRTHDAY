@@ -1,0 +1,17 @@
+@import '../../../../styles/global.scss';
+.addTask {
+    margin-top: 24px;
+
+    &__title {
+        font-size: 36px;
+        font-family: "Inter";
+        &Container {
+            margin-bottom: 32px;
+        }
+    }
+
+    &__text {
+        font-size: 24px;
+        font-family: "Patrick";
+    }
+}

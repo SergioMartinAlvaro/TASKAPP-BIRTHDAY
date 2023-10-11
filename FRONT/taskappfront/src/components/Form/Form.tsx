@@ -10,10 +10,15 @@ interface FormProps {
   submitAction: (...args: any[]) => void;
 }
 
+export interface IOptionSelect {
+  text: string,
+  id: string
+}
+
 export interface IFieldConfig {
   type: "label" | "input" | "select" | "textarea" | "password";
   label?: string;
-  options?: string[];
+  options?: IOptionSelect[];
   name: string;
   placeholder?: string;
   onChange: (e: any) => void;
