@@ -3,16 +3,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IUser, emptyUser } from "../../../../models/IUser";
 import { getAllUsers } from "../../../../services/userService";
 import { setMenuMessage } from "../../../../store/userSlice";
-import { setAllTasks, setAllUsers } from "../../../../store/adminSlice";
+import { removeTask, setAllTasks, setAllUsers } from "../../../../store/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
 import Title, { ETitleSize } from "../../../../components/Title/Title";
-import { ITask } from "../../../../models/ITask";
+import { ITask, emptyTask } from "../../../../models/ITask";
 import CheckboxList from "../../../user/components/CheckboxList/CheckboxList";
-import { getAllTasksByUserId } from "../../../../services/tasksService";
+import { deleteTask, getAllTasksByUserId } from "../../../../services/tasksService";
 import './UserInfo.scss';
 import AdminFloatingButton from "../../components/AdminFloatingMenu/AdminFloatingMenu";
-import FloatingButtonMenu from "../../components/AdminFloatingMenu/Menu/FloatingButtonMenu";
+import { ReactComponent as ModificarIcon } from '../../../../assets/icons/Modificar.svg';
+import { ReactComponent as EliminarIcon } from '../../../../assets/icons/Eliminar.svg';
+import Modal from "../../../../components/Modal/Modal";
+import Button, { EButtonSize, EButtonType } from "../../../../components/Button/Button";
+import AdminList from "../../components/AdminList/AdminList";
 
 const UserInfo = () => {
   const { value } = useParams<{ value: string }>();
@@ -22,8 +26,12 @@ const UserInfo = () => {
   const allTasks = useSelector((state: RootState) => state.admin.allTasks);
   const [toDoTasks, setToDoTasks] = useState<ITask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
+  const [itemList, setItemList] = useState([]);
+  const [taskSelected, setTaskSelected] = useState<ITask>(emptyTask);
+  const [showModal, setShowModal] = useState(false);
+
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const loadUserInfo = async () => {
       if (allUsers.length === 0) {
@@ -44,7 +52,7 @@ const UserInfo = () => {
         try {
           const tasks = await getAllTasksByUserId(user.id);
           dispatch(setAllTasks(tasks));
-          calculateTasks()
+          calculateTasks();
         } catch (error) {
           console.error(error);
           dispatch(setMenuMessage("Error obteniendo tareas."));
@@ -56,22 +64,69 @@ const UserInfo = () => {
   }, [allUsers, dispatch, value]);
 
   useEffect(() => {
-    calculateTasks()
-  }, [allTasks])
+    updateTaskList();
+  }, [allTasks]);
 
-
+  const openModal = (task: ITask) => {
+    setTaskSelected(task);
+    setShowModal(true);
+  };
 
   const calculateTasks = () => {
-    const toDo:ITask[] = allTasks.filter((task:ITask) => !task.completed)
-    const completed:ITask[] = allTasks.filter((task:ITask) => task.completed)
+    const toDo: ITask[] = allTasks.filter((task: ITask) => !task.completed);
+    const completed: ITask[] = allTasks.filter((task: ITask) => task.completed);
     setToDoTasks(toDo);
-    setCompletedTasks(completed)
-  }
+    setCompletedTasks(completed);
+  };
+
+  const updateTaskList = () => {
+    if (allTasks.length > 0) {
+      const newItemList = [];
+      allTasks.forEach((task: ITask) => {
+        newItemList.push({
+          text: task.text,
+          icons: {
+            Modificar: { icon: <ModificarIcon />, action: () => navigate(`/edit-task/${task.id}`) },
+            Eliminar: { icon: <EliminarIcon />, action: () => openModal(task) },
+          },
+        });
+      });
+      setItemList(newItemList);
+    }
+  };
+
+  const deleteTaskAsync = async () => {
+    try {
+      await deleteTask(taskSelected.id);
+      dispatch(setMenuMessage('Tarea borrada con éxito'));
+
+      // Actualizar el estado después de borrar la tarea
+      dispatch(removeTask(taskSelected));
+
+      setTaskSelected(emptyTask);
+    } catch (error) {
+      console.error('Error borrando la tarea', error);
+      dispatch(setMenuMessage('Error borrando la tarea'));
+      setTaskSelected(emptyTask);
+    } finally {
+      setShowModal(false);
+    }
+  };
 
   const menuButtons = [
-    {text: "Añadir tarea", action: () => {navigate(`/add-task/${selectedUser.id}`)}},
-    {text: "Ver llaves", action: () => {}}
-  ]
+    { text: "Añadir tarea", action: () => { navigate(`/add-task/${selectedUser.id}`) } },
+    { text: "Ver llaves", action: () => { } }
+  ];
+
+  const buttons = [
+    <Button
+      key="button1"
+      onClick={() => { deleteTaskAsync() }}
+      text="Borrar"
+      buttonType={EButtonType.Main}
+      buttonSize={EButtonSize.LargeButton}
+    />,
+  ];
 
   return (
     <div className="userInfo">
@@ -80,28 +135,20 @@ const UserInfo = () => {
         <h2 className="userInfo__title">{selectedUser.name}</h2>
       </div>
       <div className="titleContainer">
-        <Title text="Tareas por hacer" size={ETitleSize.Small} />
+        <Title text="Tareas asignadas" size={ETitleSize.Small} />
       </div>
       <div className="listContainer">
-        {toDoTasks.length > 0 ? (
-          <CheckboxList tasks={toDoTasks} isAdmin={false} onToggle={() => {}} />
-        ) : (
-          <div className="textContainer">
-            {completedTasks.length > 0 ? 
-              <p className="textContainer__text">Este usuario completó todas sus tareas</p> :
-              <p className="textContainer__text">No tienes tareas asignadas</p>
-            }
-          </div>
-        )}
-      </div>
-      <div className="titleContainer">
-        <Title text="Tareas completadas" size={ETitleSize.Small} />
-      </div>
-      <div className="listContainer">
-        <CheckboxList tasks={completedTasks} isAdmin={false} onToggle={() => {}} />
+        <AdminList items={itemList} />
       </div>
       <AdminFloatingButton options={menuButtons} />
-
+      {showModal && <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        buttons={buttons}
+        title=""
+      >
+        <p style={{ marginBottom: "24px" }}>¿Estás seguro de que quieres eliminar esta tarea?</p>
+      </Modal>}
     </div>
   );
 };

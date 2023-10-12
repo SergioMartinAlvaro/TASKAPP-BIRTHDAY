@@ -15,6 +15,7 @@ import AdminPanel from "./features/admin/pages/AdminPanel/AdminPanel";
 import EditUser from "./features/admin/pages/EditUser/EditUser";
 import UserInfo from "./features/admin/pages/UserInfo/UserInfo";
 import AddTask from "./features/admin/pages/AddTask/AddTask";
+import AddUser from "./features/admin/pages/AddUser/AddUser";
 
 const RenderRoutes = () => {
   const isAuthenticated = useSelector(
@@ -109,6 +110,12 @@ const RenderRoutes = () => {
         path="/add-task-to-all"
         element={
           isAuthenticated && isAdmin ? <AddTask /> : <Navigate to="/login" />
+        }
+      />
+      <Route
+        path="/add-user"
+        element={
+          isAuthenticated && isAdmin ? <AddUser /> : <Navigate to="/login" />
         }
       />
       {/* Otras rutas aquí */}

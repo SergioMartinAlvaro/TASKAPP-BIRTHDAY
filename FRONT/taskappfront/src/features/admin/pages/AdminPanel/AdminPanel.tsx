@@ -93,6 +93,10 @@ const AdminPanel = () => {
             text: "Ver Llaves",
             action: () => {}
         },
+        {
+            text: "Añadir usuario",
+            action: () => {navigate('/add-user')}
+        },
     ]
 
   return (

@@ -1,6 +1,7 @@
 import config from "../config/config";
 import axios from "axios";
 import { IUser } from "../models/IUser";
+import { v4 as uuidv4 } from "uuid";
 
 const apiUrl = config.apiUrl;
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
@@ -47,6 +48,20 @@ export const updatedUser = async (userId: string, userData: IUser) => {
 export const deleteUser = async (userId: string) => {
   try {
     const response = await api.delete(`users/deleteUser/${userId}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+}
+
+export const createUser = async (user: IUser) => {
+  try {
+    const response = await api.post(`users/createUser`, {
+      id: uuidv4(),
+      name: user.name,
+      password: user.password,
+      role: user.role
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;

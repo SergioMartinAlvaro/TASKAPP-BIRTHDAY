@@ -43,6 +43,15 @@ export const createTask = async (task: ITask) => {
   }
 };
 
+export const deleteTask = async (taskId: string) => {
+  try {
+    const response = await api.delete(`tasks/deleteTask/${taskId}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+}
+
 export const completeTask = async (taskId: string) => {
   try {
     const response = await api.post(`tasks/completeTask/${taskId}`);
