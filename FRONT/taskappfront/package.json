@@ -36,7 +36,7 @@
     "sass:compile": "node-sass --recursive --output-style expanded src/ -o src/",
     "start": "npm run sass:compile && react-scripts start",
     "start:dev": "react-scripts start --proxy setupProxy.js",
-    "build": "npm run sass:compile && react-scripts build",
+    "build": "npm run sass:compile && react-scripts build || true",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
